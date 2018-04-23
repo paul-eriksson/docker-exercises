@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "This is a simple ES6 compiling example using docker environment.",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Omoroi",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "grunt-babel": "^7.0.0"
+  }
+}
