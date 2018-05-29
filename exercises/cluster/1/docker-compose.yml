@@ -1,1 +1,11 @@
-# TODO: write your own  here ./exercises/cluster/1/docker-compose.yml
+version: '3.2'
+services:
+  web:
+    build: ./helloserver
+    ports:
+    - target: 5000
+      published: 5000
+    volumes:
+    - type: bind
+      source: ./helloserver
+      target: /app

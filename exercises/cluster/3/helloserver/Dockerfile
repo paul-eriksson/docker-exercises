@@ -1,1 +1,5 @@
-# TODO: write your own  here ./exercises/cluster/3/helloserver/Dockerfile
+FROM python:3-alpine
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+CMD ["python","helloserver.py"]

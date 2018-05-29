@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.6.5 on linux)" generated="20180529 10:21:17.918">
+<suite id="s1" name="Test" source="/test/test.robot">
+<kw name="Connect to server" type="setup">
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.032" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20180529 10:21:18.031" endtime="20180529 10:21:20.032"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>hellosession</arg>
+<arg>http://web:5000</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.033" level="INFO">Creating Session using : alias=hellosession, url=http://web:5000, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20180529 10:21:20.033" endtime="20180529 10:21:20.034"></status>
+</kw>
+<status status="PASS" starttime="20180529 10:21:18.031" endtime="20180529 10:21:20.035"></status>
+</kw>
+<test id="s1-t1" name="Hello returns Hi Man">
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>hellosession</arg>
+<arg>/hello</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.052" level="INFO">Get Request using : alias=hellosession, uri=/hello, headers=None json=None</msg>
+<msg timestamp="20180529 10:21:20.052" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.037" endtime="20180529 10:21:20.052"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.053" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.053" endtime="20180529 10:21:20.054"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.content}</arg>
+<arg>Hi man!</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.054" level="INFO">Argument types are:
+&lt;class 'bytes'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.054" endtime="20180529 10:21:20.055"></status>
+</kw>
+<status status="PASS" starttime="20180529 10:21:20.035" endtime="20180529 10:21:20.055" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Count returns I have x platinum hits">
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>hellosession</arg>
+<arg>/count</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.075" level="INFO">Get Request using : alias=hellosession, uri=/count, headers=None json=None</msg>
+<msg timestamp="20180529 10:21:20.076" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.057" endtime="20180529 10:21:20.076"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.078" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.077" endtime="20180529 10:21:20.078"></status>
+</kw>
+<kw name="Decode Bytes To String" library="String">
+<doc>Decodes the given ``bytes`` to a Unicode string using the given ``encoding``.</doc>
+<arguments>
+<arg>${response.content}</arg>
+<arg>UTF-8</arg>
+</arguments>
+<assign>
+<var>${text}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.080" level="INFO">${text} = I have 1 platinum hits!
+</msg>
+<status status="PASS" starttime="20180529 10:21:20.078" endtime="20180529 10:21:20.080"></status>
+</kw>
+<kw name="Should Match Regexp" library="BuiltIn">
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>I have \\d+ platinum hits!</arg>
+</arguments>
+<status status="PASS" starttime="20180529 10:21:20.081" endtime="20180529 10:21:20.081"></status>
+</kw>
+<status status="PASS" starttime="20180529 10:21:20.056" endtime="20180529 10:21:20.081" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Count increases the count">
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>hellosession</arg>
+<arg>/count</arg>
+</arguments>
+<assign>
+<var>${response_1}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.107" level="INFO">Get Request using : alias=hellosession, uri=/count, headers=None json=None</msg>
+<msg timestamp="20180529 10:21:20.107" level="INFO">${response_1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.084" endtime="20180529 10:21:20.107"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_1.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.108" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.107" endtime="20180529 10:21:20.108"></status>
+</kw>
+<kw name="Decode Bytes To String" library="String">
+<doc>Decodes the given ``bytes`` to a Unicode string using the given ``encoding``.</doc>
+<arguments>
+<arg>${response_1.content}</arg>
+<arg>UTF-8</arg>
+</arguments>
+<assign>
+<var>${text_1}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.109" level="INFO">${text_1} = I have 2 platinum hits!
+</msg>
+<status status="PASS" starttime="20180529 10:21:20.108" endtime="20180529 10:21:20.109"></status>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<arguments>
+<arg>${text_1}</arg>
+<arg>\\d+</arg>
+</arguments>
+<assign>
+<var>${count_1}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.109" level="INFO">${count_1} = ['2']</msg>
+<status status="PASS" starttime="20180529 10:21:20.109" endtime="20180529 10:21:20.109"></status>
+</kw>
+<kw name="Length Should Be" library="BuiltIn">
+<doc>Verifies that the length of the given item is correct.</doc>
+<arguments>
+<arg>${count_1}</arg>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.110" level="INFO">Length is 1</msg>
+<status status="PASS" starttime="20180529 10:21:20.109" endtime="20180529 10:21:20.110"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>hellosession</arg>
+<arg>/count</arg>
+</arguments>
+<assign>
+<var>${response_2}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.126" level="INFO">Get Request using : alias=hellosession, uri=/count, headers=None json=None</msg>
+<msg timestamp="20180529 10:21:20.126" level="INFO">${response_2} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.111" endtime="20180529 10:21:20.126"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_2.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.127" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20180529 10:21:20.127" endtime="20180529 10:21:20.128"></status>
+</kw>
+<kw name="Decode Bytes To String" library="String">
+<doc>Decodes the given ``bytes`` to a Unicode string using the given ``encoding``.</doc>
+<arguments>
+<arg>${response_2.content}</arg>
+<arg>UTF-8</arg>
+</arguments>
+<assign>
+<var>${text_2}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.128" level="INFO">${text_2} = I have 3 platinum hits!
+</msg>
+<status status="PASS" starttime="20180529 10:21:20.128" endtime="20180529 10:21:20.128"></status>
+</kw>
+<kw name="Get Regexp Matches" library="String">
+<doc>Returns a list of all non-overlapping matches in the given string.</doc>
+<arguments>
+<arg>${text_1}</arg>
+<arg>\\d+</arg>
+</arguments>
+<assign>
+<var>${count_2}</var>
+</assign>
+<msg timestamp="20180529 10:21:20.129" level="INFO">${count_2} = ['2']</msg>
+<status status="PASS" starttime="20180529 10:21:20.129" endtime="20180529 10:21:20.129"></status>
+</kw>
+<kw name="Length Should Be" library="BuiltIn">
+<doc>Verifies that the length of the given item is correct.</doc>
+<arguments>
+<arg>${count_2}</arg>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20180529 10:21:20.130" level="INFO">Length is 1</msg>
+<status status="PASS" starttime="20180529 10:21:20.130" endtime="20180529 10:21:20.130"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${count_1[0]}</arg>
+<arg>${count_2[0]}</arg>
+</arguments>
+<status status="PASS" starttime="20180529 10:21:20.130" endtime="20180529 10:21:20.131"></status>
+</kw>
+<status status="PASS" starttime="20180529 10:21:20.082" endtime="20180529 10:21:20.133" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20180529 10:21:17.921" endtime="20180529 10:21:20.134"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0">Critical Tests</stat>
+<stat pass="3" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="0" id="s1" name="Test">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
